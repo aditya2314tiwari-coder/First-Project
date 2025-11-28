@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Keyboard Event Example</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        body { font-family: system-ui, -apple-system, Roboto, "Segoe UI", Arial; margin: 24px; color:#222; }
+        h1 { font-size: 1.25rem; margin-bottom: 8px; }
+        .area { display:flex; gap:20px; align-items:flex-start; }
+        .box { border:1px solid #ddd; padding:12px; border-radius:8px; background:#fafafa; width:420px; }
+        .big { font-family: monospace; white-space: pre-wrap; background:#fff; padding:8px; border-radius:6px; border:1px solid #eee; }
+        .keys { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+        .key { padding:6px 8px; border-radius:6px; background:#f0f6ff; border:1px solid #d6e4ff; font-family:monospace; }
+        .hint { margin-top:10px; color:#555; font-size:0.9rem; }
+        input, textarea { width:100%; box-sizing:border-box; padding:8px; font-size:1rem; }
+    </style>
+</head>
+<body>
+    <h1>Keyboard Event Example</h1>
+    <p>Click the input or anywhere on the page and press keys. The panel shows live event properties.</p>
+
+    <div class="area">
+        <div class="box">
+            <strong>Interactive Input</strong>
+            <p><input id="text" placeholder="Click here and type (Esc, Ctrl, Shift, arrows, letters)"></p>
+            <div class="hint">Try: Shift+A, Ctrl+S, Arrow keys, Space, Enter. Hold multiple keys.</div>
+            <div style="margin-top:12px;">
+                <strong>Currently pressed keys:</strong>
+                <div id="pressed" class="keys"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <strong>Latest Event Details</strong>
+            <div id="output" class="big">No keyboard events yet.</div>
+        </div>
+    </div>
+
+    <script>
+        // Keep track of currently pressed physical keys (by e.code)
+        const pressed = new Set();
+        const pressedEl = document.getElementById('pressed');
+        const output = document.getElementById('output');
+        const text = document.getElementById('text');
+
+        function renderPressed() {
+            pressedEl.innerHTML = '';
+            if (pressed.size === 0) {
+                pressedEl.textContent = '(none)';
+                return;
+            }
+            for (const code of pressed) {
+                const span = document.createElement('span');
+                span.className = 'key';
+                span.textContent = code;
+                pressedEl.appendChild(span);
+            }
+        }
+
+        function showEvent(e, type) {
+            // Build a readable summary
+            const lines = [];
+            lines.push('type:      ' + type);
+            lines.push('key:       ' + (e.key === undefined ? '—' : JSON.stringify(e.key)));
+            lines.push('code:      ' + (e.code === undefined ? '—' : e.code));
+            lines.push('keyCode:   ' + (e.keyCode === undefined ? '—' : e.keyCode));
+            lines.push('ctrlKey:   ' + !!e.ctrlKey + '   altKey: ' + !!e.altKey + '   shiftKey: ' + !!e.shiftKey + '   metaKey: ' + !!e.metaKey);
+            lines.push('repeat:    ' + !!e.repeat + '   timestamp: ' + e.timeStamp.toFixed(0));
+            lines.push('target:    ' + (e.target && e.target.tagName ? e.target.tagName : String(e.target)));
+            lines.push('');
+            lines.push('Currently pressed (physical codes):');
+            lines.push(Array.from(pressed).join(', ') || '(none)');
+
+            output.textContent = lines.join('\n');
+        }
+
+        // Handle keydown
+        document.addEventListener('keydown', (e) => {
+            // Prevent default for example combos (e.g., space scrolling)
+            // Note: don't block essential browser shortcuts in production
+            if (e.code === 'Space') e.preventDefault();
+
+            // Add to set (only unique entries)
+            pressed.add(e.code || e.key);
+            renderPressed();
+            showEvent(e, 'keydown');
+
+            // Example action: change background color with Arrow keys
+            if (e.code === 'ArrowUp') document.body.style.background = '#f7fff0';
+            if (e.code === 'ArrowDown') document.body.style.background = '#fff8f0';
+            if (e.code === 'ArrowLeft') document.body.style.background = '#f0f8ff';
+            if (e.code === 'ArrowRight') document.body.style.background = '#fff0f7';
+        });
+
+        // Handle keyup
+        document.addEventListener('keyup', (e) => {
+            pressed.delete(e.code || e.key);
+            renderPressed();
+            showEvent(e, 'keyup');
+
+            // reset background on release of arrow keys
+            if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)) {
+                document.body.style.background = '';
+            }
+        });
+
+        // keypress is deprecated but shown for demonstration (fires for printable keys)
+        document.addEventListener('keypress', (e) => {
+            // Note: keypress gives character-level info for many keys
+            showEvent(e, 'keypress');
+        });
+
+        // Keep focus on the input when page loads (optional)
+        text.focus();
+
+        // Initialize display
+        renderPressed();
+    </script>
+</body>
+</html>

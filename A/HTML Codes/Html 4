@@ -1,0 +1,47 @@
+<html>
+    <body>
+        <h2>Mobile Price Table</h2>
+        <table border="1">
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Display</th>
+                <th>Camera</th>
+                <th>Battery</th>
+                <th>RAM</th>
+                <th>Processor</th>
+            </tr>
+            <tr>
+                <td>Apple</td>
+                <td>iPhone 16</td>
+                <td>1200000</td>
+                <td>6.1 inches</td>
+                <td>12 MP</td>
+                <td>3095 mAh</td>
+                <td>6 GB</td>
+                <td>A16 Bionic</td>
+            </tr>
+            <tr>
+                <td>Samsung</td>
+                <td>Galaxy S25</td>
+                <td>699000</td>
+                <td>6.2 inches</td>
+                <td>108 MP</td>
+                <td>4000 mAh</td>
+                <td>8 GB</td>
+                <td>Exynos 2200</td>
+            </tr>
+            <tr>
+                <td>Google</td>
+                <td>Pixel 10</td>
+                <td>599000</td>
+                <td>6.0 inches</td>
+                <td>50 MP</td>
+                <td>4600 mAh</td>
+                <td>8 GB</td>
+                <td>Tensor G3</td>
+            </tr>
+        </table>
+    </body>
+</html>

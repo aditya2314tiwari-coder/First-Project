@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <h3>
+    Keyboard Event Example
+        </h3>
+        type something: <input onkeyup="showKey(event)">
+        <p id="result"></p>
+        <script>
+            function showKey(e) {
+                document.getElementById("result").innerHTML ="you press"+e.showKey
+            }
+        </script>
+    </body>
+</html>

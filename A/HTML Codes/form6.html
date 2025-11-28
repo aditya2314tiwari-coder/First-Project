@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>
+            Formss
+        </title>
+        <style>
+            body {
+                background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                text-align: center;
+                color: #f76d6d;
+                margin-bottom: 24px;
+            }
+            label {
+                font-weight: 500;
+                color: #333;
+            }
+            input[type="text"], input[type="email"], textarea {
+                width: 100%;
+                padding: 10px 12px;
+                margin-top: 6px;
+                margin-bottom: 18px;
+                border: 1px solid #fda085;
+                border-radius: 8px;
+                background: #f9f9f9;
+                font-size: 1em;
+                transition: border 0.3s;
+            }
+            input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+                border: 1.5px solid #f76d6d;
+                outline: none;
+                background: #fffbe7;
+            }
+            input[type="submit"] {
+                background: linear-gradient(90deg, #fda085, #f6d365);
+                color: #fff;
+                border: none;
+                padding: 12px 0;
+                width: 100%;
+                border-radius: 8px;
+                font-size: 1.1em;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            input[type="submit"]:hover {
+                background: linear-gradient(90deg, #f6d365, #fda085);
+            }
+            form {
+                max-width: 400px;
+                margin: auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to the Registration Form</h1>
+        <form >
+            <label for="name">Name:</label>
+            <input type="text" placeholder="name"><br><br>
+            <label for="email">Email:</label>
+            <input type="email" placeholder="email"><br><br>
+            <label for="gender">Gender:</label>
+            <input type="radio" name="gender" value="male"> Male
+            <input type="radio" name="gender" value="female"> Female<br><br>
+            <input type="submit" value="Submit" style="background-color: aqua;">
+        </form>
+    </body>
+</html>

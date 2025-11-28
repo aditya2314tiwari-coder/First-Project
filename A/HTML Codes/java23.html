@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <h3> Form Event Example</h3>2
+        Name: <input id = "name"><br><br>
+        <button onclick="check()">Submit</button>
+
+        <p id="msg"></p>
+
+        <script>
+            function check() {
+                var name = document.getElementById("name").value;
+                if (name == "") {
+                    document.getElementById("msg").innerHTML = "Name must be filled out";
+                } else {
+                    document.getElementById("msg").innerHTML = "Hello, " + name + "!";
+                }
+            }
+        </script>
+    </body>
+</html>
